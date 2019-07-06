@@ -122,7 +122,9 @@ class RedisMutex < RedisClassy
     end
 
     def with_lock(object, options = {}, &block)
+      p "mutex locking #{object}" if Rails.env.development?
       new(object, options).with_lock(&block)
+      p "unlock #{object}" if Rails.env.development?
     end
 
     def raise_assertion_error
